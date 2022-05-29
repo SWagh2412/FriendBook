@@ -13,6 +13,9 @@ default: &default
 development:
   <<: *default
   database: friendbook_development
+  username: postgres
+  password: postgres
+  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -20,6 +23,9 @@ development:
 test:
   <<: *default
   database: friendbook_test
+  username: postgres
+  password: postgres
+  host: localhost
 
 production:
   <<: *default
