@@ -1,9 +1,15 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_comment, only: %i[ show edit update destroy ]
 
   # GET /posts or /posts.json
   def index
-    @posts = Post.all
+    if user_signed_in?
+      @posts = current_user.posts
+    else
+      @posts = Post.all
+    end
   end
 
   # GET /posts/1 or /posts/1.json
@@ -62,6 +68,11 @@ class PostsController < ApplicationController
     def set_post
       @post = Post.find(params[:id])
     end
+
+    def set_comment
+      @comment = Comment.where(post_id: params[:id])
+    end
+
 
     # Only allow a list of trusted parameters through.
     def post_params
